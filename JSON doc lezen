@@ -1,0 +1,6 @@
+import json
+
+data = []
+with open('sbs16mining.book-metadata.json') as f:
+    for line in f:
+        data.append(json.loads(line))
