@@ -1,6 +1,6 @@
-import os
 import xml.dom.minidom
 import re
+import os
 re.UNICODE
 
 def get_text_from_xml_files(folder):
@@ -12,7 +12,7 @@ def get_text_from_xml_files(folder):
         thread_files[filename] = text;
     return thread_files
 
-chars_to_remove = {ord(c):None for c in [u'\n', u'.', u'!', u'?']}
+chars_to_remove = {ord(c):None for c in [u'\n', u'.', u'!', u'?', u'#', u'-', u',']}
 
 def get_text_from_xml(file):
 
@@ -34,12 +34,20 @@ def get_text_from_xml(file):
         text = text_node.childNodes[0].data
         alle_text.append(text)
 
+    # Ga alle text_node 's af en stop de text in alle_text
+    for text_node in text_nodelist:
+        text = text_node.childNodes[0].data
+        alle_text.append(text)
+
     # verwijder overbodige characters
     resultaat = ' '.join(alle_text).translate(chars_to_remove)
+    zonder_cijfers = re.sub('\d+', '', resultaat)
+    zonder_extra_spaties = re.sub(' +',' ',zonder_cijfers)
+    return zonder_extra_spaties
 
-    return resultaat
 
 text_from_xml_files = get_text_from_xml_files("./sbs16mining-linking-training-threads_kleindeel")
 for thread_file in text_from_xml_files.keys():
     print ">>>> File: %s" % thread_file
-    print (''.join(text_from_xml_files[thread_file]))
+    print text_from_xml_files[thread_file]                        
+    chars_to_remove = {ord(c):None for c in [u'\n', u'.', u'!', u'?', u'#', u'-', u',']}
