@@ -14,21 +14,15 @@ class Book:
         return "Book [ %s, %s, %s, %s ]" % (self.workdID, self.author, self.isbn, self.title)
 
 book = Book ('{"workID": "7494673", "versions": [{"author": "", "ISBN": "0000000140", "booktitle": "Ca 1-Part 7 Lincoln"}]}')
-print (book)
-print ("workID: %s" % book.workdID)
-print ("author: %s" % book.author)
-print ("isbn: %s" % book.isbn)
-print ("title: %s" % book.title)
+#print (book)
+#print ("workID: %s" % book.workdID)
 
-print
-print ("reading ")
-books = []
+def read_book_list():
+    books = []
+    book_metadata_json = 'small_corpus.json'
+    # book_metadata_json = '/Users/jan/Downloads/sbs16mininsbs16mining.book-metadata.json'
+    with open(book_metadata_json, 'r') as f:
+        for line in f:
+            books.append(Book(line))
+    return books
 
-#book_metadata_json = '/Users/jan/Desktop/corpus/sbs16mining.book-metadata.json'
-book_metadata_json = '/Users/jan/Desktop/corpus/x.json'
-with open(book_metadata_json, 'r') as f:
-    for line in f:
-        books.append(Book(line))
-
-print (books[0])
-print (books[len(books)-1])
