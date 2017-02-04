@@ -63,3 +63,14 @@ def fuzzy_match(dictionary, metadata_json, ratio):
                     print(postid, title, result)
         else:
             print("values in input are not list or str objects")
+
+
+def fuzzy_match2(text, choices, ratio):
+    """""Takes a string and
+    returns the postids, found titles and workids"""
+
+    for title in choices:
+        result = fuzz.ratio(title, text)
+        if result > ratio:
+            allres = result, title
+            return allres
